@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useHttpClient } from '../../hooks/http-hook'
 import classes from './Categories.module.css'
+import Category from './Category';
+
+
 
 const Categories = () => {
 
@@ -10,7 +13,7 @@ const Categories = () => {
     useEffect(() => {
         const getCategories= async() => {
             const categories = await sendRequest("category/list" )
-            console.log(error);
+            console.log(categories);
             setCategoryList(categories)
            
         }
@@ -18,18 +21,12 @@ const Categories = () => {
     },[])
     
   return (
-    <div>
-    {loading && (<div className={classes.categories}>
-        {
-            categoryList.map(category => {
-                <div>
-                    {category.categoryName}
-                </div>
-            })
-        }
-    </div>)}
+    <div className={classes.categories}>
+    {!loading ? 
+       <> {categoryList.map(category => (<Category key={category.id} item = {category}/> ))}</>
+     :<div>loading</div>}
     </div>
-  )
+  ) 
 }
 
 export default Categories

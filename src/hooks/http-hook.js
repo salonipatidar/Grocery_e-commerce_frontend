@@ -12,7 +12,7 @@ export const useHttpClient = () => {
         try{
         const response =  await fetch(BASE_URL+url,{
             method:method,
-            body:JSON.stringify(body),
+            body:body,
             headers:headers 
         })
 
@@ -24,7 +24,12 @@ export const useHttpClient = () => {
 
         setLoading(false);
 
+        
+        console.log(responseData)
+
         return responseData ;
+
+
     }catch(e){
         setError(e.message);
         setLoading(false);

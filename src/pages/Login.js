@@ -20,7 +20,7 @@ const Login = () => {
    const token = await sendRequest(
       `user/${formType === "Login" ?"signin":"signup" }`,
       "POST",
-      {userName : formType === "SignUp" ? userName.current.value : "",email: email.current.value, password: password.current.value } ,
+      JSON.stringify({userName : formType === "SignUp" ? userName.current.value : "",email: email.current.value, password: password.current.value }),
       { "Content-Type": "application/json" }
     );
   };
