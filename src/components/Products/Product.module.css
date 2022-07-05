@@ -50,3 +50,42 @@
     
 }
 
+.heartStyle{
+    color: #999;
+    font-size: 20px;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.addons{
+    display: flex;
+    width: 100%;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.heart{
+    width: 10%;
+    display: flex;
+    margin: auto;
+    margin-right: 0px;
+}
+
+.addToCart{
+    width: 75%;
+    display: flex;
+}
+
+.addToCart input{
+    width: 33%;
+   margin: auto;
+} 
+
+.addToCart button{
+    width: 60%;
+   margin: auto;
+} 
+
+.heartStyle:hover{
+    color: var(--orange);
+}
