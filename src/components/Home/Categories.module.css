@@ -1,0 +1,7 @@
+.categories{
+    display: flex;
+    margin: auto;
+    width: 50%;
+    height: 75vh;
+    background: var(--orange);
+}

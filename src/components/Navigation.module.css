@@ -1,0 +1,43 @@
+.nav{
+    background-color: var(--blue);
+    padding: 25px 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    color: var(--white);
+}
+
+.brandName{
+    font-size: 35px;
+    margin: auto;
+    margin-left: 0;
+
+}
+
+.navLinks{
+    margin: auto;
+    margin-right: 0;
+    display: flex;
+    font-size: 15px;
+}
+.navLink{
+    margin: 0 10px 0 10px;
+    padding-bottom: 5px;
+}
+
+.navLink:hover{
+    border-bottom: 2px solid var(--orange);
+}
+
+a{
+    color: var(--white);
+    text-decoration: none;
+}
+
+
+.activeLink{
+    border-bottom: 2px solid var(--orange);
+    color: var(--orange);
+}
