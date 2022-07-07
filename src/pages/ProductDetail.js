@@ -16,7 +16,6 @@ const ProductDetail = () => {
       const productDetail = await sendRequest(
         `product/details/${params.productId}`
       );
-      console.log(productDetail);
       setProduct(productDetail);
     };
     getProduct();

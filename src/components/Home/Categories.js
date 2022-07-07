@@ -13,7 +13,6 @@ const Categories = () => {
     useEffect(() => {
         const getCategories= async() => {
             const categories = await sendRequest("category/list" )
-            console.log(categories);
             setCategoryList(categories)
            
         }

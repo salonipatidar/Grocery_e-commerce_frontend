@@ -24,8 +24,6 @@ export const useHttpClient = () => {
 
         setLoading(false);
 
-        
-        console.log(responseData)
 
         return responseData ;
 
