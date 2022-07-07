@@ -34,11 +34,11 @@ const Login = () => {
       { "Content-Type": "application/json" }
     );
 
-    if (loginDetails.status === "sucess" && formType === "Login") {
+    if (loginDetails.status === "success" && formType === "Login") {
       dispatch(authActions.login({ token: loginDetails.token }));
       history("/");
     } else {
-      setFormType("Login0");
+      setFormType("Login");
     }
   };
   return (

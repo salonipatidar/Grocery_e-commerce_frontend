@@ -7,6 +7,7 @@
     left: 0;
     display: flex;
     color: var(--white);
+    z-index: 100;
 }
 
 .brandName{
@@ -23,12 +24,12 @@
     font-size: 15px;
 }
 .navLink{
-    margin: 0 10px 0 10px;
-    padding-bottom: 5px;
+    margin: auto 10px;
 }
 
 .navLink:hover{
-    border-bottom: 2px solid var(--orange);
+    /* border-bottom: 2px solid var(--orange); */
+    color: #888;
 }
 
 a{
@@ -38,6 +39,22 @@ a{
 
 
 .activeLink{
-    border-bottom: 2px solid var(--orange);
     color: var(--orange);
+}
+
+.activeLink:hover{
+    color: var(--orange);
+}
+.icon{
+    font-size: 20px;
+    margin: auto;
+}
+
+.signOut{
+    border-radius: 5px;
+    background-color: var(--orange) ;
+    padding: 5px 10px;
+    margin: 0 10px;
+    font-weight: bold;
+    color: var(--blue);
 }

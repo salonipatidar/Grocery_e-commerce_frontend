@@ -1,91 +1,94 @@
-.cardContainer{
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    margin: auto;
-    margin-bottom: 30px;
-    background-color: var(--white);
-    border-radius: 10px;
-    position : relative ;
-    transition: 0.5s;
-    cursor: pointer;
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 22%;
+  margin: auto;
+  margin-bottom: 30px;
+  background-color: var(--white);
+  border-radius: 10px;
+  position: relative;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
-.cardContainer img{
-    height: 150px;
-    border-radius: 10px;
+.cardContainer img {
+  height: 150px;
+  border-radius: 10px;
 }
 
-.details{
-    display: flex;
-    flex-direction: column;
+.details {
+  display: flex;
+  flex-direction: column;
 }
 
-.title{
-    font-weight: bold;
-    margin: 10px auto ;
-    color: var(--orange);
+.title {
+  font-weight: bold;
+  margin: 10px auto;
+  color: var(--orange);
 }
 
-.description{
-    margin: auto;
-    padding: 5px;
-    color: var(--blue);
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: var(--white);
-    border-radius: 10px 10px 0 0 ;
-    z-index: -1;
-    transition: 0.5s;
+.description {
+  margin: auto;
+  padding: 5px;
+  color: var(--blue);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--white);
+  border-radius: 10px 10px 0 0;
+  z-index: -1;
+  transition: 0.5s;
 }
 
-.cardContainer:hover>.description{
-    top: -25px;
+.cardContainer:hover > .description {
+  top: -25px;
 }
 
-.cardContainer:hover{
-    box-shadow: 0 5px 10px #999;
-    
+.cardContainer:hover {
+  box-shadow: 0 5px 10px #999;
 }
 
-.heartStyle{
-    color: #999;
-    font-size: 20px;
-    margin: auto;
-    transition: 0.5s;
+.heartStyle {
+  color: #999;
+  font-size: 20px;
+  margin: auto;
+  transition: 0.5s;
 }
 
-.addons{
-    display: flex;
-    width: 100%;
-    margin: 10px auto;
-    padding: 10px;
+.addons {
+  display: flex;
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
 }
 
-.heart{
-    width: 10%;
-    display: flex;
-    margin: auto;
-    margin-right: 0px;
+.heart {
+  width: 10%;
+  display: flex;
+  margin: auto;
+  margin-right: 0px;
 }
 
-.addToCart{
-    width: 75%;
-    display: flex;
+.addToCart {
+  width: 75%;
+  display: flex;
 }
 
-.addToCart input{
-    width: 33%;
-   margin: auto;
-} 
+.addToCart input {
+  width: 33%;
+  margin: auto;
+}
 
-.addToCart button{
-    width: 60%;
-   margin: auto;
-} 
+.addToCart button {
+  width: 60%;
+  margin: auto;
+}
 
-.heartStyle:hover{
-    color: var(--orange);
+.heartStyle:hover {
+  color: var(--orange);
+}
+
+.wishlisted {
+  color: var(--orange);
 }

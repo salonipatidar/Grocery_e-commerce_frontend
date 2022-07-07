@@ -93,3 +93,7 @@
 .heartStyle:hover{
     color: var(--orange);
 }
+
+.wishlisted {
+    color: var(--orange);
+  }

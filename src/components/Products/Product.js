@@ -1,21 +1,43 @@
 import classes from "./Product.module.css";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import useWishlist from "../../hooks/wishlist-hook";
+import { useHttpClient } from "../../hooks/http-hook";
 
 const Product = (props) => {
+  const { isAuthenticated: isLoggedIn, token } = useSelector(
+    (state) => state.auth
+  );
+  const nav = useNavigate();
+  const { setWishlist, wishlisted, checkWishlist } = useWishlist();
+  const { sendRequest, loading, error } = useHttpClient();
+  const qtyRef = useRef();
 
-  const isLoggedIn = useSelector((state)=>state.auth.isAuthenticated )
-  const nav = useNavigate()
+  useEffect(() => {
+    checkWishlist(props.item.id);
+  }, []);
 
-  const addToCart = () =>{
-    if(isLoggedIn) 
-      alert("added to cart");
-      else
-        nav("/login")
-  }
+  const addToCart = async () => {
+    if (isLoggedIn) {
+      const data = await sendRequest(
+        `cart/add?token=${token}`,
+        "POST",
+        JSON.stringify({
+          id : 1,
+          productId : props.item.id,
+          quantity : qtyRef.current.value ,
+        }),
+        { "Content-Type": "application/json" }
+      );
+    } else nav("/login");
+  };
+
+  const wishlist = async () => {
+    await setWishlist(props.item);
+  };
   return (
     <div className={classes.cardContainer}>
       <Link to={`/product/${props.item.id}`} className={classes.details}>
@@ -24,11 +46,17 @@ const Product = (props) => {
       </Link>
       <div className={classes.addons}>
         <div className={classes.addToCart}>
-          <input type="number" initialValue="1" min="1" max="5" />
+          <input type="number" initialvalue="1" min="1" max="5" ref={qtyRef} />
           <button onClick={addToCart}>Add To Cart</button>
         </div>
         <div className={classes.heart}>
-          <FontAwesomeIcon icon={faHeart} className={classes.heartStyle} />
+          <FontAwesomeIcon
+            icon={faHeart}
+            onClick={wishlist}
+            className={`${classes.heartStyle} ${
+              wishlisted && classes.wishlisted
+            }`}
+          />
         </div>
       </div>
     </div>
