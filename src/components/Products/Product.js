@@ -32,11 +32,18 @@ const Product = (props) => {
         }),
         { "Content-Type": "application/json" }
       );
+
+      if(! data.success){
+        alert(data.message);
+      }
     } else nav("/login");
   };
 
   const wishlist = async () => {
-    await setWishlist(props.item);
+   const {itemId , type} =  await setWishlist(props.item);
+   if(type === "delete" && props.pageType === "wishlist"){
+      props.refresh(itemId)
+   }
   };
   return (
     <div className={classes.cardContainer}>
@@ -46,7 +53,7 @@ const Product = (props) => {
       </Link>
       <div className={classes.addons}>
         <div className={classes.addToCart}>
-          <input type="number" initialvalue="1" min="1" max="5" ref={qtyRef} />
+          <input type="number" defaultValue={1} min="1" max="5" ref={qtyRef} />
           <button onClick={addToCart}>Add To Cart</button>
         </div>
         <div className={classes.heart}>

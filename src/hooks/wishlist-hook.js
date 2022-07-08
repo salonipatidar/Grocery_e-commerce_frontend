@@ -12,6 +12,7 @@ const useWishlist = () => {
   const { sendRequest, loading, error } = useHttpClient();
 
   const setWishlist = useCallback(async (item) => {
+    let type = "add";
     if (isLoggedIn && !wishlisted) {
       const data = await sendRequest(
         `/wishlist/add?token=${token}`,
@@ -28,15 +29,22 @@ const useWishlist = () => {
         JSON.stringify(item),
         { "Content-Type": "application/json" }
       );
-      if (data.success) setWishlisted(false);
+      if (data.success) {
+        setWishlisted(false);
+        type = "delete";
+      }
     }
+
+    return {itemId : item.id,  type};
   });
 
   const checkWishlist = useCallback(async (id) => {
-    if(isLoggedIn){
-    const isWishlisted = await sendRequest(`wishlist/${token}/${parseInt(id)}`);
-    setWishlisted(isWishlisted);}
-    else setWishlisted(false);
+    if (isLoggedIn) {
+      const isWishlisted = await sendRequest(
+        `wishlist/${token}/${parseInt(id)}`
+      );
+      setWishlisted(isWishlisted);
+    } else setWishlisted(false);
   });
 
   return { setWishlist, wishlisted, checkWishlist };

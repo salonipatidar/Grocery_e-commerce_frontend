@@ -10,27 +10,24 @@ const Wishlist = () => {
     const {sendRequest , loading , error} = useHttpClient();
     const [productList , setProductList] = useState([]);
     const token = useSelector((state) => state.auth.token)
-    const [refresh , setRefresh ] = useState(false);
 
 
     useEffect(() => {
         const getProducts= async() => {
             const products = await sendRequest(`wishlist/${token}` )
             setProductList(products)
-            setRefresh(false)
         }
         getProducts()
     },[])
 
-    const updateRefresh = () => {
-        setRefresh(true);
-        alert("refersh called");
+    const updateRefresh = (id) => {
+        setProductList(productList.filter(item => item.id !== id))
       }
 
   return (
     <div className={classes.container}>
     {!loading ? 
-       <>{productList.map(product => (<Product key={product.id} item={product} refresh={updateRefresh}/>) )}</>
+       <>{productList.map(product => (<Product key={product.id} item={product} refresh={updateRefresh} pageType="wishlist"/>) )}</>
      :<div>loading</div>}
     </div>
   ) 

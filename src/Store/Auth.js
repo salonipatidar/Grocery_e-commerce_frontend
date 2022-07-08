@@ -9,11 +9,14 @@ const authSlice = createSlice({
     login(state, action) {
       state.isAuthenticated = true;
       state.token = action.payload.token;
+      localStorage.setItem("token", action.payload.token);
     },
     signOut(state){
         state.isAuthenticated = false;
         state.token = null
+        localStorage.removeItem("token");
     }
+    
   },
 });
 
