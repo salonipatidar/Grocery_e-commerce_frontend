@@ -6,38 +6,17 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import useWishlist from "../../hooks/wishlist-hook";
 import { useHttpClient } from "../../hooks/http-hook";
+import useAddToCart from "../../hooks/addToCart-hook";
 
 const Product = (props) => {
-  const { isAuthenticated: isLoggedIn, token } = useSelector(
-    (state) => state.auth
-  );
-  const nav = useNavigate();
   const { setWishlist, wishlisted, checkWishlist } = useWishlist();
-  const { sendRequest, loading, error } = useHttpClient();
   const qtyRef = useRef();
+  const {addToCart} = useAddToCart();
 
   useEffect(() => {
     checkWishlist(props.item.id);
   }, []);
 
-  const addToCart = async () => {
-    if (isLoggedIn) {
-      const data = await sendRequest(
-        `cart/add?token=${token}`,
-        "POST",
-        JSON.stringify({
-          id : 1,
-          productId : props.item.id,
-          quantity : qtyRef.current.value ,
-        }),
-        { "Content-Type": "application/json" }
-      );
-
-      if(! data.success){
-        alert(data.message);
-      }
-    } else nav("/login");
-  };
 
   const wishlist = async () => {
    const {itemId , type} =  await setWishlist(props.item);
@@ -54,7 +33,7 @@ const Product = (props) => {
       <div className={classes.addons}>
         <div className={classes.addToCart}>
           <input type="number" defaultValue={1} min="1" max="5" ref={qtyRef} />
-          <button onClick={addToCart}>Add To Cart</button>
+          <button onClick={()=>addToCart(props.item,qtyRef.current.value)}>Add To Cart</button>
         </div>
         <div className={classes.heart}>
           <FontAwesomeIcon

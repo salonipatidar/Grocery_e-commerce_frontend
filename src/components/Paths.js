@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ProductDetail from "../pages/ProductDetail";
 import Products from "../pages/Products";
+import Success from "../pages/Success";
 import Wishlist from "../pages/Wishlist";
 
 const Paths = () => {
@@ -27,6 +28,7 @@ const Paths = () => {
         </>
       )}
       <Route path="*" element={<div>not found</div>} />
+      <Route path="/payment/success" element={<Success />} />
     </Routes>
   );
 };

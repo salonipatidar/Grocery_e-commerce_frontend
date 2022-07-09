@@ -5,6 +5,7 @@ import { useHttpClient } from "../hooks/http-hook";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import useWishlist from "../hooks/wishlist-hook";
+import useAddToCart from "../hooks/addToCart-hook";
 
 const ProductDetail = () => {
   const { sendRequest, loading, error } = useHttpClient();
@@ -12,6 +13,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   let params = useParams();
   const { setWishlist, wishlisted, checkWishlist } = useWishlist();
+  const {addToCart} = useAddToCart()
 
   useEffect(() => {
     const getProduct = async () => {
@@ -45,12 +47,12 @@ const ProductDetail = () => {
           <div className={classes.addToCart}>
             <input
               type="number"
-              initialvalue="1"
+              defaultValue="1"
               min="1"
               max="5"
               onChange={updateQuantity}
             />
-            <button>Add To Cart</button>
+            <button onClick={()=>addToCart(product , quantity)}>Add To Cart</button>
           </div>
           <div className={classes.heart}>
             <FontAwesomeIcon
