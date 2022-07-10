@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Grocery_e-commerce_frontend/static/css/main.c55dd036.css",
-    "main.js": "/Grocery_e-commerce_frontend/static/js/main.6338a28f.js",
+    "main.js": "/Grocery_e-commerce_frontend/static/js/main.d3fd1619.js",
     "index.html": "/Grocery_e-commerce_frontend/index.html",
     "main.c55dd036.css.map": "/Grocery_e-commerce_frontend/static/css/main.c55dd036.css.map",
-    "main.6338a28f.js.map": "/Grocery_e-commerce_frontend/static/js/main.6338a28f.js.map"
+    "main.d3fd1619.js.map": "/Grocery_e-commerce_frontend/static/js/main.d3fd1619.js.map"
   },
   "entrypoints": [
     "static/css/main.c55dd036.css",
-    "static/js/main.6338a28f.js"
+    "static/js/main.d3fd1619.js"
   ]
 }
