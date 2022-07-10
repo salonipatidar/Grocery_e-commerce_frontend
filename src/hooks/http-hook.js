@@ -7,7 +7,7 @@ export const useHttpClient = () => {
 
     const sendRequest = useCallback(async (url , method ="GET" , body = null , headers={} ) =>{
 
-        const BASE_URL = "http://localhost:8080/"
+        const BASE_URL = "https://grocery-e-commerce-backend.herokuapp.com/"
         setLoading(true);
         try{
         const response =  await fetch(BASE_URL+url,{
