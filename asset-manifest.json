@@ -1,13 +1,18 @@
 {
   "files": {
-    "main.css": "/Grocery_e-commerce_frontend/static/css/main.c55dd036.css",
-    "main.js": "/Grocery_e-commerce_frontend/static/js/main.e4882a1b.js",
+    "main.css": "/Grocery_e-commerce_frontend/static/css/main.93294531.css",
+    "main.js": "/Grocery_e-commerce_frontend/static/js/main.cac4ad6a.js",
+    "static/media/background.jpg": "/Grocery_e-commerce_frontend/static/media/background.d2b8af544e409a3e75d9.jpg",
+    "static/media/fruits.jpg": "/Grocery_e-commerce_frontend/static/media/fruits.786d400935e17f73a6ac.jpg",
+    "static/media/login3.svg": "/Grocery_e-commerce_frontend/static/media/login3.b2d45e3c5ffcda4c282e.svg",
+    "static/media/undraw_online_payments_re_y8f2.svg": "/Grocery_e-commerce_frontend/static/media/undraw_online_payments_re_y8f2.8e2409ce9b0b474e517a.svg",
+    "static/media/login4.svg": "/Grocery_e-commerce_frontend/static/media/login4.e55c408ad8725e7ba77e.svg",
     "index.html": "/Grocery_e-commerce_frontend/index.html",
-    "main.c55dd036.css.map": "/Grocery_e-commerce_frontend/static/css/main.c55dd036.css.map",
-    "main.e4882a1b.js.map": "/Grocery_e-commerce_frontend/static/js/main.e4882a1b.js.map"
+    "main.93294531.css.map": "/Grocery_e-commerce_frontend/static/css/main.93294531.css.map",
+    "main.cac4ad6a.js.map": "/Grocery_e-commerce_frontend/static/js/main.cac4ad6a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c55dd036.css",
-    "static/js/main.e4882a1b.js"
+    "static/css/main.93294531.css",
+    "static/js/main.cac4ad6a.js"
   ]
 }
