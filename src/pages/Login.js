@@ -1,96 +1,76 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useHttpClient } from "../hooks/http-hook";
 import classes from "./Login.module.css";
 import { useDispatch } from "react-redux";
-import { authActions } from "../Store/Auth";
-import { useNavigate } from "react-router-dom";
+import { NavActions } from "../Store/Navigation";
+import {authActions} from "../Store/Auth"
+import { Loading } from "../components/Loading";
 
 const Login = () => {
-  const [formType, setFormType] = useState("Login");
+  const [state, setState] = useState("Login");
   const userName = useRef();
   const email = useRef();
   const password = useRef();
   const { sendRequest, loading, error } = useHttpClient();
 
   const dispatch = useDispatch();
-  const history = useNavigate();
 
-  const switchFormType = () => {
-    if (formType === "Login") setFormType("SignUp");
-    else setFormType("Login");
-  };
 
-  const submitForm = async (e) => {
-    e.preventDefault();
+  const submitForm = async () => {
 
     const loginDetails = await sendRequest(
-      `user/${formType === "Login" ? "signin" : "signup"}`,
+      `user/${state === "Login" ? "signin" : "signup"}`,
       "POST",
       JSON.stringify({
-        userName: formType === "SignUp" ? userName.current.value : "",
+        userName: state === "SignUp" ? userName.current.value : "",
         email: email.current.value,
         password: password.current.value,
       }),
       { "Content-Type": "application/json" }
     );
 
-    if (loginDetails.status === "success" && formType === "Login") {
+    if (loginDetails.status === "success" && state === "Login") {
       dispatch(authActions.login({ token: loginDetails.token }));
-      history("/");
+      dispatch(NavActions.setPage("home"));
     } else {
-      setFormType("Login");
+      changeState("Login");
     }
   };
+
+  const changeState = () => {
+    if (state === "Login") {
+      setState("Signup");
+    } else {
+      setState("Login");
+    }
+  };
+
   return (
-    <form className={classes.container} onSubmit={submitForm}>
-      <div className={classes.login}>{formType}</div>
-      {loading && <div>loading</div>}
-      {error && <div className="error">{error}</div>}
-      {formType !== "Login" && (
-        <div className={classes.formControl}>
-          <input
-            type="text"
-            placeholder="Username"
-            ref={userName}
-            name="username"
-            required
-          />
-        </div>
-      )}
-      <div className={classes.formControl}>
+    <div className={classes.loginContainer}>
+      {loading && <Loading/> }
+      <div className={classes.loginCard}>
+        <div className={classes.header}>{state}</div>
+        {state === "Signup" && (
+          <input className={classes.input} ref={userName} placeholder="Enter name" />
+        )}
+        <input className={classes.input} ref={email} placeholder="Enter email" />
         <input
-          type="email"
-          placeholder="Email"
-          ref={email}
-          name="email"
-          required
-        />
-      </div>
-      <div className={classes.formControl}>
-        <input
-          type="password"
-          placeholder="Password"
+          className={classes.input}
           ref={password}
-          name="password"
-          required
+          type="password"
+          placeholder="Enter password"
         />
+        <div className={classes.button} onClick={submitForm}>{state}</div>
+        <div className={classes.questionContainer}>
+          <div className={classes.question}>
+            {state === "Login" ? "Don't" : "Already"} have an account?
+          </div>
+          <div className={classes.change} onClick={changeState}>
+            {state === "Login" ? "Signup" : "Login"}
+          </div>
+        </div>
       </div>
-      <div className={classes.formControl}>
-        <button>{formType}</button>
-      </div>
-      {formType === "Login" && (
-        <>
-          <div>Don't have an account ?</div>
-          <div onClick={switchFormType}>SignUp</div>
-        </>
-      )}
-      {formType === "SignUp" && (
-        <>
-          <div>Already have an account ?</div>
-          <div onClick={switchFormType}>Login</div>
-        </>
-      )}
-    </form>
+    </div>
   );
 };
 

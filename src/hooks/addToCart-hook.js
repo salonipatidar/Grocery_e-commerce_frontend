@@ -1,14 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../Store/Cart";
+import { NavActions } from "../Store/Navigation";
 import { useHttpClient } from "./http-hook";
 
 const useAddToCart = () => {
   const { isAuthenticated: isLoggedIn, token } = useSelector(
     (state) => state.auth
   );
-  const nav = useNavigate();
-  const { sendRequest, loading, error } = useHttpClient();
+  const { sendRequest, loading } = useHttpClient();
+  const dispatch = useDispatch();
 
   const addToCart = useCallback(async (item, qty) => {
     if (isLoggedIn) {
@@ -21,14 +22,21 @@ const useAddToCart = () => {
         }),
         { "Content-Type": "application/json" }
       );
-
-      if (!data.success) {
-        alert(data.message);
+      if (data.success) {
+        dispatch(
+          cartActions.addItem({
+            id: data.id,
+            product: { ...item, imageUrl: item.imageURL },
+            quantity: qty,
+          })
+        );
+        dispatch(cartActions.updateTotalCost());
       }
-    } else nav("/login");
+      return data;
+    } else dispatch(NavActions.setPage("login"));
   });
 
-  return { addToCart };
+  return { addToCart, cartLoading: loading };
 };
 
 export default useAddToCart;

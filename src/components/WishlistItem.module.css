@@ -1,0 +1,85 @@
+.wishItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  aspect-ratio: 2;
+  margin-bottom: 30px;
+}
+
+.itemImage {
+  width: 100%;
+  aspect-ratio: 2;
+  background-image: url(../../public/images/categories/fruits.jpg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}
+
+.details {
+  padding: 0px 10px;
+  width: 100%;
+  position: relative;
+}
+
+.itemName {
+  font-weight: bold;
+  font-size: 1vw;
+  color: var(--green);
+}
+
+.itemPrice {
+  font-weight: 300;
+  font-size: 1vw;
+  color: var(--dark);
+}
+
+.wishIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5vw;
+  color: var(--orange);
+  display: flex;
+  gap: 1vw;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: 1s spin infinite linear;
+  color: #ccc;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+  .wishItem {
+    margin-bottom: 20px;
+  }
+
+  .itemImage {
+    width: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+  }
+
+  .itemName {
+    font-size: 3vw;
+  }
+
+  .itemPrice {
+    font-size: 3vw;
+  }
+
+  .wishIcon {
+    font-size: 4vw;
+  }
+}

@@ -1,0 +1,129 @@
+.cartItem {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 2;
+  margin-bottom: 30px;
+}
+
+.itemImage {
+  width: 50%;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.details {
+  padding: 0px 10px;
+  width: 50%;
+}
+
+.itemName {
+  font-weight: bold;
+  font-size: 1vw;
+  color: var(--green);
+}
+
+.itemPrice {
+  font-weight: 300;
+  font-size: 1vw;
+  color: var(--dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+.trash {
+  color: var(--dark);
+  cursor: pointer;
+}
+
+.options {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.quantity {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.quantityButton {
+  background-color: var(--green);
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: var(--light);
+  cursor: pointer;
+}
+
+.sub {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.add {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.quantity input {
+  border: none;
+  outline: none;
+  width: 50%;
+  text-align: center;
+  color: var(--dark);
+}
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.totalPrice {
+  font-weight: 600;
+  font-size: 1vw;
+}
+
+.disable {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: 1s spin infinite linear;
+  color: #ccc;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+  .itemName {
+    font-size: 3vw;
+  }
+
+  .itemPrice {
+    font-size: 3vw;
+  }
+
+  .quantity {
+    width: 100%;
+  }
+
+  .totalPrice {
+    font-weight: 600;
+    font-size: 3vw;
+  }
+}

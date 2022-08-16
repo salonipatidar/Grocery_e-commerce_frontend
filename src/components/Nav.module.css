@@ -1,0 +1,56 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: var(--light);
+  padding: 0px 10%;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.brandName {
+  color: var(--green);
+  font-size: 2.5vw;
+  cursor: pointer;
+}
+
+.navLinks {
+  margin-left: auto;
+  display: flex;
+  gap: 1.5vw;
+  font-size: 1.5vw;
+  color: var(--green);
+}
+
+.navLink {
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--orange);
+}
+
+.active {
+  border-bottom: 2px solid var(--orange);
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+  .nav {
+    height: 60px;
+    padding: 2.5% 20px;
+  }
+
+  .brandName {
+    font-size: 7.5vw;
+  }
+
+  .navLinks {
+    gap: 4vw;
+    font-size: 5vw;
+  }
+}

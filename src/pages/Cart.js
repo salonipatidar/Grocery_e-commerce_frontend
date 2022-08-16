@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import classes from "./Cart.module.css";
-import { useSelector } from "react-redux";
+import CartItem from "../components/CartItem";
 import { useHttpClient } from "../hooks/http-hook";
-import CartItem from "../components/CartItems/CartItem";
+import { useSelector, useDispatch } from "react-redux";
 import { useStripe } from "@stripe/react-stripe-js";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { cartActions } from "../Store/Cart";
 
 const Cart = () => {
-  const { sendRequest, loading, error } = useHttpClient();
-  const [cartItems, setCartItems] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
+  const { sendRequest, loading } = useHttpClient();
   const token = useSelector((state) => state.auth.token);
+  const { cartItemDtos: cart, totalCost } = useSelector(
+    (state) => state.cart.cart
+  );
+  const dispatch = useDispatch();
   const stripe = useStripe();
-  const [pageType , setPageType] =useState("cart")
 
   const checkout = async () => {
-    const body = cartItems.map((item) => {
+    const body = cart.map((item) => {
       return {
         price: item.product.price,
         productId: item.product.id,
@@ -23,111 +27,45 @@ const Cart = () => {
         userId: 0,
       };
     });
-    const {sessionId} = await sendRequest(
-      "/order/create-checkout-session",
+    const { sessionId } = await sendRequest(
+      "order/create-checkout-session?base=" + window.location.toString(),
       "POST",
       JSON.stringify(body),
       { "Content-Type": "application/json" }
     );
-    
+
     console.log(sessionId);
+
     await stripe.redirectToCheckout({
       sessionId: sessionId,
     });
-
   };
+
   useEffect(() => {
     const getCart = async () => {
-      const { cartItemDtos, totalCost } = await sendRequest(
-        `cart/?token=${token}`
-      );
-      setCartItems(cartItemDtos);
-      setTotalCost(totalCost);
+      const cart = await sendRequest(`cart/?token=${token}`);
+      dispatch(cartActions.setCart(cart));
     };
-    getCart();
+    if (cart.length === 0) getCart();
   }, []);
-
-  const updateCost = async (id, productId, quantity) => {
-    const data = await sendRequest(
-      `cart/update/${id}?token=${token}`,
-      "PUT",
-      JSON.stringify({
-        id: id,
-        productId: productId,
-        quantity: quantity,
-      }),
-      { "Content-Type": "application/json" }
-    );
-
-    if (data.success) {
-      const newCart = cartItems.map((item) => {
-        if (item.id == id) {
-          item.quantity = quantity;
-        }
-
-        return item;
-      });
-      setCartItems(newCart);
-      let cost = 0;
-      newCart.forEach((item) => (cost += item.product.price * item.quantity));
-      setTotalCost(cost);
-    }
-  };
-
-  const deleteCartItem = async (id) => {
-    const data = await sendRequest(
-      `cart/delete/${id}?token=${token}`,
-      "DELETE"
-    );
-
-    if (data.success) {
-      const newCart = cartItems.filter((item) => item.id !== id);
-      setCartItems(newCart);
-      let cost = 0;
-      newCart.forEach((item) => (cost += item.product.price * item.quantity));
-      setTotalCost(cost);
-    }
-  };
-
   return (
-    <>
-    {pageType === "cart" &&
-    <div className={classes.cartContainer}>
-      {cartItems.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item.product}
-          qty={item.quantity}
-          id={item.id}
-          deleteCartItem={deleteCartItem}
-          updatePrice={updateCost}
-        />
-      ))}
-      <div className={classes.checkout}>
-        <button className={classes.checkoutBtn} onClick={()=>setPageType("order")}>
-          Proceed to checkout
-        </button>
-        <div className={classes.checkoutCost}>Total Cost : ₹{totalCost}</div>
+    <div className={`${classes.cartContainer}`}>
+      <div className={classes.header}>Cart</div>
+      <div className={classes.cartItems}>
+        {loading && (
+          <FontAwesomeIcon icon={faCircleNotch} className={classes.spinner} />
+        )}
+        {cart.map((product) => {
+          return <CartItem product={product} key={product.id} />;
+        })}
+      </div>
+      <div className={classes.orderContainer}>
+        <div className={classes.finalPrice}>Total Price: Rs {totalCost}</div>
+        <div className={classes.orderButton} onClick={checkout}>
+          Order
+        </div>
       </div>
     </div>
-    
-
-   }
-   {
-      pageType === "order" && 
-      <div style={{margin:"auto"}}>
-        <div>You will be redirected to stripe payment page to continue please click "proceed to payment " button</div>
-        <br></br>
-        <button className={classes.checkoutBtn} onClick={()=>setPageType("cart")}>
-          Return to cart
-        </button>&nbsp;&nbsp;&nbsp;
-        <button className={classes.checkoutBtn} onClick={checkout}>
-          Proceed to payment
-        </button>
-      </div>
-   }
-
-</>
   );
 };
 

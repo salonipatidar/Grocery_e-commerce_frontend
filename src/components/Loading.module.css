@@ -1,0 +1,51 @@
+.loadingContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.loading {
+  display: flex;
+  width: 25%;
+  gap: 2vw;
+  position: relative;
+}
+
+@keyframes loading {
+  0% {
+    top: -2vw;
+  }
+  50% {
+    top: 2vw;
+  }
+  100% {
+    top: -2vw;
+  }
+}
+
+.dot {
+  width: 5vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--green);
+  position: relative;
+  animation: 2s loading ease-in-out infinite;
+  top: -2vw;
+}
+
+.two {
+  animation-delay: 0.25s;
+}
+
+.three {
+  animation-delay: 0.5s;
+}
+
+.four {
+  animation-delay: 0.75s;
+}
